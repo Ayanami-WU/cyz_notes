@@ -1,6 +1,8 @@
 摘自6级词汇
 
-<iframe src="../../../assets/pdfs/六级听力（一）.pdf" width="100%" height="800"></iframe>
+<p><a href="../../../assets/pdfs/六级听力（1）.pdf" target="_blank" rel="noopener noreferrer">打开或下载六级听力 PDF</a></p>
+
+<iframe src="../../../assets/pdfs/六级听力（1）.pdf" width="100%" height="800"></iframe>
 
 ### [cite_start]8. discourse [cite: 177-200]
 * **音标**: /disko: rs/

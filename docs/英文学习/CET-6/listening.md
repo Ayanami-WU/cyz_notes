@@ -21,4 +21,6 @@ base: 封闭，被包围，在……里面 -> 在一段时间内，在……状�
 到……去
 发生了位移
 
-<iframe src="../assets/pdfs/六级听力（1）.pdf" width="100%" height="800"></iframe>
+<p><a href="../../../assets/pdfs/六级听力（1）.pdf" target="_blank" rel="noopener noreferrer">打开或下载六级听力 PDF</a></p>
+
+<iframe src="../../../assets/pdfs/六级听力（1）.pdf" width="100%" height="800"></iframe>

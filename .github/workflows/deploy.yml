@@ -20,6 +20,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Verify LFS assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(docs/assets/pdfs/*.pdf)
+
+          if (( ${#files[@]} == 0 )); then
+            echo "::error::No PDF assets were found"
+            exit 1
+          fi
+
+          for file in "${files[@]}"; do
+            if [[ "$(LC_ALL=C head -c 5 "$file")" != "%PDF-" ]]; then
+              echo "::error file=$file::The file is still a Git LFS pointer, not a materialized PDF"
+              exit 1
+            fi
+          done
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -36,6 +57,28 @@ jobs:
 
       - name: Build
         run: mkdocs build
+
+      - name: Verify generated PDF assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          source_files=(docs/assets/pdfs/*.pdf)
+
+          for source in "${source_files[@]}"; do
+            relative_path="${source#docs/assets/pdfs/}"
+            output="site/assets/pdfs/$relative_path"
+
+            if [[ ! -f "$output" ]]; then
+              echo "::error file=$output::The PDF was not copied to the MkDocs output"
+              exit 1
+            fi
+
+            if [[ "$(LC_ALL=C head -c 5 "$output")" != "%PDF-" ]]; then
+              echo "::error file=$output::The generated asset is not a valid PDF"
+              exit 1
+            fi
+          done
 
       - name: Disable Jekyll
         run: touch site/.nojekyll
